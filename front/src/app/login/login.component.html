@@ -1,8 +1,8 @@
 <p-panel *ngIf="!user">
-  <form (ngSubmit)="login()">
+  <form #f="ngForm" (ngSubmit)="login(f.value)" novalidate>
     <div class="p-field">
-      <label for="firstname">ID</label><br/>
-      <input id="firstname" pInputText  required="" name="firstname" type="text" pInputText>
+      <label for="id">ID</label><br/>
+      <input type="text" name="id" ngModel required #id="ngModel" pInputText>
     </div>
     <button pButton label="Login"></button>
   </form>

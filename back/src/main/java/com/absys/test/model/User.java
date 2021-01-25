@@ -79,4 +79,8 @@ public class User {
     public void setEarthJob(String earthJob) {
         this.earthJob = earthJob;
     }
+
+	public static Object contains(String userid) {
+		return null;
+	}
 }

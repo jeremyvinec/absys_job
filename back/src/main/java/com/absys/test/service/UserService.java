@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -14,8 +16,13 @@ public class UserService {
     @Autowired
     private SimpMessagingTemplate webSocketTemplate;
 
-    private List<User> memoryDatabase = new LinkedList(){{add(
-            new User("SFES45", "DUPONT", "JEAN", new Date(), "FRANCE", "FARMER"));}};
+    // generate user list
+    private static final List<User> memoryDatabase = new ArrayList<>();
+        static {
+            memoryDatabase.add(new User("SFES45", "DUPONT", "JEAN", new Date(), "FRANCE", "FARMER"));
+            memoryDatabase.add(new User("SFES46", "Yvinec", "Jeremy", new Date(), "FRANCE", "Dev"));
+        }
+    
     private List<Criminal> earthCriminalDatabase = Criminal.earthCriminal();
     /**
      * Create an ID and a user then return the ID
@@ -25,9 +32,10 @@ public class UserService {
     public User createUser(User user) {
         try {
             // generate key
-            String key = "TODO : generate random string here";
+            // random => UUID.randomUUID().toString()
+            /*String key = "TODO : generate random string here";
             user.setId(key);
-            memoryDatabase.add(user);
+            memoryDatabase.add(user);*/
             // notify
             webSocketTemplate.convertAndSend("/workflow/states", user);
             return user;
@@ -77,7 +85,9 @@ public class UserService {
      * @return
      */
     public User login(String userid) {
-        // TODO
-        return null;
+        // Check if userid exists in memoryDatabase (ArrayList) else null
+        return memoryDatabase.stream().filter(item ->
+            userid.equals(item.getId())
+        ).findAny().orElse(null);
     }
 }
