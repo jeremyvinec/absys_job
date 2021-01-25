@@ -3,8 +3,6 @@ package com.absys.test.controller;
 import com.absys.test.model.User;
 import com.absys.test.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
 import java.util.List;
 
 @RestController()
