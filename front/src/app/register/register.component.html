@@ -1,18 +1,26 @@
 <p-panel header="Register">
   <p>Please fill this form to register you as Martian</p>
-  <form (ngSubmit)="onSubmit()">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <p-fieldset legend="Personnal informations">
       <div class="p-field">
         <label for="firstname">First name</label><br/>
-        <input id="firstname" pInputText [(ngModel)]="user.firstname" required="" name="firstname" type="text" pInputText>
+        <input id="firstname" pInputText ngModel #firstname="ngModel" required name="firstname" type="text" pInputText>
       </div>
       <div class="p-field">
         <label for="lastname">Lastname</label><br/>
-        <input id="lastname" pInputText [(ngModel)]="user.lastname" required="" name="lastname" type="text" pInputText>
+        <input id="lastname" pInputText ngModel #lastname="ngModel" required name="lastname" type="text" pInputText>
       </div>
       <div class="p-field">
         <label for="birthday">Birthday</label><br/>
-        <p-calendar id="birthday" [(ngModel)]="user.birthday" required="" name="birthday"></p-calendar>
+        <p-calendar id="birthday" ngModel #birthday="ngModel" required yearRange="1900:2021" [yearNavigator]="true" name="birthday"></p-calendar>
+      </div>
+      <div class="p-field">
+        <label for="job">Job</label><br/>
+        <input id="job" pInputText ngModel #job="ngModel" required name="job" type="text" pInputText>
+      </div>
+      <div class="p-field">
+        <label for="country">Country</label><br/>
+        <input id="country" pInputText ngModel #country="ngModel" required name="country" type="text" pInputText>
       </div>
       <div class="p-field">
         <button pButton type="submit" label="Register"></button>

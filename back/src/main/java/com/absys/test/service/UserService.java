@@ -2,13 +2,14 @@ package com.absys.test.service;
 
 import com.absys.test.model.Criminal;
 import com.absys.test.model.User;
+import com.absys.test.model.UserState;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -60,6 +61,11 @@ public class UserService {
         // fetch user from memory database
         // is the same function login
         User user = login(userid);
+        //System.out.println(earthCriminalDatabase);
+        /*Object result = earthCriminalDatabase.stream().filter(item ->
+        item.
+          userid.equals(item.getId())
+        ).findAny().orElse(null);*/
         // next step on workflow
         // CREATED -> EARTH_CONTROL -> MARS_CONTROL -> DONE
         // Check criminal list during "EARTH_CONTROL" state, if the user is in the list, set state to REFUSED

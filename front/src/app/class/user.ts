@@ -5,5 +5,15 @@ export class User {
   birthday: Date;
   earthCountry: string;
   earthJob: string;
-  state?: string;
+  state?: UserState;
+  country: string;
+  job: string;
+}
+
+export enum UserState {
+  CREATED="CREATED",
+  EARTH_CONTROL="EARTH_CONTROL",
+  MARS_CONTROL="MARS_CONTROL",
+  DONE="DONE",
+  REFUSED="REFUSED"
 }

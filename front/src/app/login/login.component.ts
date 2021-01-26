@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     await this.webSocket.connect();
     // update user on state change
     this.webSocket.subscribe('/workflow/states', (user) => {
-      console.log(user)
       if (user.id == this.user.id) {
         this.user = user;
       }
@@ -42,7 +41,6 @@ export class LoginComponent implements OnInit {
   async login(f: { id: string }) {
     try {
       !this.user && f?.id ? this.user = await this.userService.login(f?.id): this.user;
-      console.log(this.user)
       this.messageService.add({severity: 'success', summary: 'Login', detail: 'You have been logged'});
       await this.loadWebSocket();
     } catch (e) {

@@ -11,6 +11,7 @@ public class User {
     private String earthCountry;
     private String earthJob;
     private UserState state = UserState.CREATED;
+	public Object isNotAllowedToMars;
 
     public User(String id, String firstname, String lastname, Date date, String earthCountry, String earthJob) {
         this.id = id;
