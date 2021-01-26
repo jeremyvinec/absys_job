@@ -4,11 +4,29 @@
     <p-fieldset legend="Personnal informations">
       <div class="p-field">
         <label for="firstname">First name</label><br/>
-        <input id="firstname" pInputText ngModel #firstname="ngModel" required name="firstname" type="text" pInputText>
+        <input 
+          id="firstname" 
+          oninput="this.value = this.value.toUpperCase()"
+          pInputText 
+          ngModel 
+          #firstname="ngModel" 
+          required 
+          name="firstname" 
+          type="text" 
+          pInputText>
       </div>
       <div class="p-field">
         <label for="lastname">Lastname</label><br/>
-        <input id="lastname" pInputText ngModel #lastname="ngModel" required name="lastname" type="text" pInputText>
+        <input 
+          id="lastname" 
+          oninput="this.value = this.value.toUpperCase()" 
+          pInputText 
+          ngModel 
+          #lastname="ngModel" 
+          required 
+          name="lastname" 
+          type="text" 
+          pInputText>
       </div>
       <div class="p-field">
         <label for="birthday">Birthday</label><br/>
@@ -16,11 +34,29 @@
       </div>
       <div class="p-field">
         <label for="earthJob">Job</label><br/>
-        <input id="earthJob" pInputText ngModel #earthJob="ngModel" required name="earthJob" type="text" pInputText>
+        <input 
+          id="earthJob" 
+          oninput="this.value = this.value.toUpperCase()" 
+          pInputText 
+          ngModel 
+          #earthJob="ngModel"
+          required 
+          name="earthJob" 
+          type="text" 
+          pInputText>
       </div>
       <div class="p-field">
         <label for="earthCountry">Country</label><br/>
-        <input id="earthCountry" pInputText ngModel #earthCountry="ngModel" required name="earthCountry" type="text" pInputText>
+        <input 
+          id="earthCountry" 
+          oninput="this.value = this.value.toUpperCase()" 
+          pInputText 
+          ngModel 
+          #earthCountry="ngModel" 
+          required 
+          name="earthCountry" 
+          type="text" 
+          pInputText>
       </div>
       <div class="p-field">
         <button pButton type="submit" label="Register"></button>
