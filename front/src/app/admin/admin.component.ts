@@ -67,21 +67,23 @@ export class AdminComponent implements OnInit {
     this.updateRowGroupMetaCountry();
   }
 
-  async onApprouved(id: string) {
-    try {
-      await this.userService.workflow(id);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Workflow',
-        detail: 'User has been updated'
-      });
-      await this.loadUsers();
-    } catch (e) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Workflow',
-        detail: 'Unable to update user'
-      });
+  async onApprouved(state, id: string) {
+    if (state !== this.unapprovedState) {
+      try {
+        await this.userService.workflow(id);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Workflow',
+          detail: 'User has been updated'
+        });
+        await this.loadUsers();
+      } catch (e) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Workflow',
+          detail: 'Unable to update user'
+        });
+      }
     }
   }
 

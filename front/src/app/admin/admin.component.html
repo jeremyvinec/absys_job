@@ -36,7 +36,7 @@
         <p-button 
           label="Approuved" 
           [disabled]="user.state==unapprovedState" 
-          (click)="!unapprovedState && onApprouved(user.id)">
+          (click)="onApprouved(user.state, user.id)">
         </p-button></td>
     </tr>
   </ng-template>

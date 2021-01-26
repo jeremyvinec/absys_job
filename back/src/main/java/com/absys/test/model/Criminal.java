@@ -45,4 +45,8 @@ public class Criminal {
     public void setNotAllowedToMars(boolean notAllowedToMars) {
         this.notAllowedToMars = notAllowedToMars;
     }
+
+	public UserState getState() {
+		return null;
+	}
 }
