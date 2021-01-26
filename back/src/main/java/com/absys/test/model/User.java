@@ -1,5 +1,6 @@
 package com.absys.test.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class User {
@@ -11,11 +12,11 @@ public class User {
     private String earthJob;
     private UserState state = UserState.CREATED;
 
-    public User(String id, String firstname, String lastname, Date birthday, String earthCountry, String earthJob) {
+    public User(String id, String firstname, String lastname, Date date, String earthCountry, String earthJob) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.birthday = birthday;
+        this.birthday = date;
         this.earthCountry = earthCountry;
         this.state = UserState.DONE;
         this.earthJob = earthJob;

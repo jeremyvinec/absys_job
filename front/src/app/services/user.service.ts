@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from "./api.service";
 import {User} from "../class/user";
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class UserService {
 
   async findAll() {
     return this.apiService.get('user/');
+  }
+
+  async findByJobThenCountry(sortedJob: boolean, sortedCountry: boolean) {
+    return this.apiService.get(`user/byJobThenCountry?sortedJob=${sortedJob}&sortedCountry=${sortedCountry}`);
   }
 
   async workflow(id: any) {

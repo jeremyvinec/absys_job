@@ -3,7 +3,6 @@ package com.absys.test.controller;
 import com.absys.test.model.User;
 import com.absys.test.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController()
@@ -18,7 +17,8 @@ public class UserController {
 
 	@PostMapping("/register")
 	public User register(@RequestBody User user) {
-		return userService.createUser(null);
+		// fix null
+		return userService.createUser(user);
 	}
 
 	@GetMapping("/")
@@ -31,9 +31,10 @@ public class UserController {
 		return userService.workflow(userId);
 	}
 
-	@GetMapping("/byJobThenCountry")
-	public Object findByJobThenCountry() {
-		return userService.findByJobThenCountry();
+	@GetMapping(value = "/byJobThenCountry")
+	@ResponseBody
+	public Object findByJobThenCountry(@RequestParam(required = false) Boolean sortedJob, Boolean sortedCountry) {
+		return userService.findByJobThenCountry(sortedJob, sortedCountry);
 	}
 
 	@PostMapping("/login")

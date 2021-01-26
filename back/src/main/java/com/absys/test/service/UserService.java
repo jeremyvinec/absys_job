@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -19,8 +19,11 @@ public class UserService {
     // generate user list
     private static final List<User> memoryDatabase = new ArrayList<>();
         static {
-            memoryDatabase.add(new User("SFES45", "DUPONT", "JEAN", new Date(), "FRANCE", "FARMER"));
-            memoryDatabase.add(new User("SFES46", "Yvinec", "Jeremy", new Date(), "FRANCE", "Dev"));
+            memoryDatabase.add(new User("SFES45", "DUPONT", "JEAN", new Date(120, 6, 1), "FRANCE", "FARMER"));
+            memoryDatabase.add(new User("SFES45", "CLAUDE", "JEAN", new Date(120, 6, 1), "FRANCE", "SINGER"));
+            memoryDatabase.add(new User("SFES46", "YVINEC", "JEREMY", new Date(), "BRETAGNE:)", "DEV"));
+            memoryDatabase.add(new User("SFES47", "MICHEL", "JEAN", new Date(), "ITALY", "DESIGN"));
+            memoryDatabase.add(new User("SFES47", "ROBIC", "JEAN", new Date(), "GERMANY", "DESIGN"));
         }
     
     private List<Criminal> earthCriminalDatabase = Criminal.earthCriminal();
@@ -32,10 +35,9 @@ public class UserService {
     public User createUser(User user) {
         try {
             // generate key
-            // random => UUID.randomUUID().toString()
-            /*String key = "TODO : generate random string here";
+            String key = UUID.randomUUID().toString();
             user.setId(key);
-            memoryDatabase.add(user);*/
+            memoryDatabase.add(user);
             // notify
             webSocketTemplate.convertAndSend("/workflow/states", user);
             return user;
@@ -55,9 +57,9 @@ public class UserService {
      * @return
      */
     public User workflow(String userid) {
-        User user = null;
         // fetch user from memory database
-
+        // is the same function login
+        User user = login(userid);
         // next step on workflow
         // CREATED -> EARTH_CONTROL -> MARS_CONTROL -> DONE
         // Check criminal list during "EARTH_CONTROL" state, if the user is in the list, set state to REFUSED
@@ -74,9 +76,24 @@ public class UserService {
      * Return all user group by its job then its country
      * @return
      */
-    public Object findByJobThenCountry() {
+    public Object findByJobThenCountry(boolean sortedJob, boolean sortedCountry) {
         // TODO : Return an Object containing user sort by Job then Country (you are not allowed to just return List<User> sorted)
-        return new ArrayList<>(0);
+        List<User> users = memoryDatabase;
+        List<User> result;
+        Comparator<User> compareByJob = Comparator.comparing(User::getEarthJob);
+        Comparator<User> compareByCountry = Comparator.comparing(User::getEarthCountry);
+        Comparator<User> compareWithBoth = Comparator
+                                                .comparing(User::getEarthJob)
+                                                .thenComparing(User::getEarthCountry);
+        // compare job and country or the both and sorted then transform to list
+        if (sortedJob && sortedCountry) {
+            result = users.stream().sorted(compareWithBoth).collect(Collectors.toList());
+        } else {
+            result = users.stream().sorted(
+                sortedJob ? compareByJob : compareByCountry
+            ).collect(Collectors.toList());
+        }
+        return result;
     }
 
     /**

@@ -3,6 +3,12 @@
 <p-table *ngIf="users" [value]="users">
   <ng-template pTemplate="header">
     <tr>
+      <th>
+        <button [ngClass]="{'p-button-success': setJob}" pButton (click)="onJob()" label="Job"></button>
+      </th>
+      <th>
+        <button [ngClass]="{'p-button-success': setCountry}" pButton (click)="onCountry()" label="Country"></button>
+      </th>
       <th>ID</th>
       <th>Firstname</th>
       <th>Lastname</th>
@@ -11,12 +17,20 @@
       <th>Action</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-user>
+  <ng-template pTemplate="body" let-rowIndex="rowIndex" let-user>
     <tr>
+      <td *ngIf="rowGroupMetaJob[user.earthJob] && rowGroupMetaJob[user.earthJob].index === rowIndex" 
+          [attr.rowspan]="rowGroupMetaJob[user.earthJob] && rowGroupMetaJob[user.earthJob].size">
+        <span class="p-text-bold p-ml-2">{{user.earthJob}}</span>
+      </td>
+      <td *ngIf="rowGroupMetaCountry[user.earthCountry] && rowGroupMetaCountry[user.earthCountry].index === rowIndex" 
+          [attr.rowspan]="rowGroupMetaCountry[user.earthCountry] && rowGroupMetaCountry[user.earthCountry].size">
+        <span class="p-text-bold p-ml-2">{{user.earthCountry}}</span>
+      </td>
       <td>{{user.id}}</td>
       <td>{{user.firstname}}</td>
       <td>{{user.lastname}}</td>
-      <td>{{user.birthday}}</td>
+      <td>{{dateOfBirthday(user) | date: 'shortDate' }}</td>
       <td>{{user.state}}</td>
       <td><p-button label="Approuved" (click)="onApprouved(user.id)"></p-button></td>
     </tr>
