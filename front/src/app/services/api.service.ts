@@ -14,6 +14,10 @@ export class ApiService {
   }
 
   public post(uri: string, body: any): Promise<any> {
-    return this.httpClient.post<any>(environment.apiUrl + uri, body).toPromise();
+    return this.httpClient.post<any>(environment.apiUrl + uri, body, {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    }).toPromise();
   }
 }

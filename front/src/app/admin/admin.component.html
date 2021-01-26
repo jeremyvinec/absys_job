@@ -4,10 +4,10 @@
   <ng-template pTemplate="header">
     <tr>
       <th>
-        <button [ngClass]="{'p-button-success': setJob}" pButton (click)="onJob()" label="Job"></button>
+        <button [ngClass]="{'p-button-success': setJob, 'p-button-danger': !setJob}" pButton (click)="onJob()" label="Job"></button>
       </th>
       <th>
-        <button [ngClass]="{'p-button-success': setCountry}" pButton (click)="onCountry()" label="Country"></button>
+        <button [ngClass]="{'p-button-success': setCountry, 'p-button-danger': !setCountry}" pButton (click)="onCountry()" label="Country"></button>
       </th>
       <th>ID</th>
       <th>Firstname</th>

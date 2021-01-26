@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   async onSubmit(f: NgForm) {
     if (f.form.status === 'VALID') {
       try {
-        await this.userService.register(this.user);
+        await this.userService.register(f.value);
         this.messageService.add({
           severity: 'success',
           summary:'Registration',
